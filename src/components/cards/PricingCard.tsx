@@ -13,6 +13,7 @@ type PricingCardProps = {
   highlighted?: boolean;
   unitLabel?: string;
   showBogo?: boolean;
+  buyUrl?: string;
 };
 
 export const PricingCard: React.FC<PricingCardProps> = ({
@@ -23,7 +24,8 @@ export const PricingCard: React.FC<PricingCardProps> = ({
   features,
   highlighted,
   unitLabel = 'account',
-  showBogo = false
+  showBogo = false,
+  buyUrl
 }) => {
   const { ref, inView } = useInViewAnimation<HTMLDivElement>();
 
@@ -67,9 +69,17 @@ export const PricingCard: React.FC<PricingCardProps> = ({
           </li>
         ))}
       </ul>
-      <Button variant="secondary" className="w-full">
-        Buy now
-      </Button>
+      {buyUrl ? (
+        <a href={buyUrl} target="_blank" rel="noopener noreferrer" className="w-full">
+          <Button variant="secondary" className="w-full">
+            Buy now
+          </Button>
+        </a>
+      ) : (
+        <Button variant="secondary" className="w-full">
+          Buy now
+        </Button>
+      )}
       <p className="mt-3 text-center text-[11px] text-slate-400">
         Delivered within 60 minutes. 24 hour money back guarantee.
       </p>

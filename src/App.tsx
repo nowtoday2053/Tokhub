@@ -274,6 +274,7 @@ export const App: React.FC = () => {
                description="Warmed U.S. account, perfect for marketing new startups, offers, etc."
                price="$25"
                showBogo
+               buyUrl="https://buy.stripe.com/eVq7sFc0o8LgfmO5tO5gc00"
               features={[
                  'U.S. IP + email verified',
                  'Created within last 1-2 months',
@@ -287,6 +288,7 @@ export const App: React.FC = () => {
               price="$49"
               highlighted
               unitLabel="5 accounts"
+              buyUrl="https://buy.stripe.com/3cI4gt9Sg9Pk8Yq2hC5gc01"
               features={[
                 '3–6 months account age',
                 'Higher trust & stability',
@@ -299,6 +301,7 @@ export const App: React.FC = () => {
               description="Built for teams, agencies, and mass campaigns"
               price="$100"
               unitLabel="10 accounts"
+              buyUrl="https://buy.stripe.com/bJe8wJaWk6D85MeaO85gc02"
               features={[
                 '10x aged U.S. accounts',
                 'Built for high-volume content testing',
