@@ -77,11 +77,11 @@ export const App: React.FC = () => {
         </div>
       </motion.header>
 
-      <main className="mx-auto flex max-w-6xl flex-col gap-24 px-4 pb-20 pt-28 sm:px-6 sm:pt-32 lg:px-8 lg:pt-36">
+      <main className="mx-auto flex max-w-6xl flex-col px-4 pb-20 pt-28 sm:px-6 sm:pt-32 lg:px-8 lg:pt-36">
         {/* Hero */}
         <section
           id="hero"
-          className="flex flex-col items-center gap-10 text-center"
+          className="flex flex-col items-center gap-10 pb-24 text-center"
         >
           <div className="space-y-8 max-w-3xl">
             <motion.div
@@ -171,7 +171,7 @@ export const App: React.FC = () => {
         </section>
 
         {/* Safe usage / proxy guidance */}
-        <section id="usage" className="space-y-8 text-center">
+        <section id="usage" className="space-y-8 border-t border-slate-200/60 pt-24 text-center">
           <div className="flex flex-col items-center gap-3">
             <div>
               <h2 className="font-display text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
@@ -217,7 +217,7 @@ export const App: React.FC = () => {
         </section>
 
         {/* Features */}
-        <section id="features" className="space-y-8 text-center">
+        <section id="features" className="space-y-8 border-t border-slate-200/60 pt-24 text-center">
           <div className="flex flex-col items-center gap-3">
             <div>
               <h2 className="font-display text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
@@ -252,7 +252,7 @@ export const App: React.FC = () => {
         </section>
 
         {/* Pricing / product tiers */}
-        <section id="pricing" className="space-y-8 text-center">
+        <section id="pricing" className="space-y-8 border-t border-slate-200/60 pt-24 text-center">
            <div className="flex flex-col items-center gap-3">
              <div>
                <h2 className="font-display text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
@@ -313,7 +313,7 @@ export const App: React.FC = () => {
         </section>
 
         {/* How it works */}
-        <section id="how-it-works" className="space-y-8 text-center">
+        <section id="how-it-works" className="space-y-8 border-t border-slate-200/60 pt-24 text-center">
           <div className="flex flex-col items-center gap-3">
             <div>
               <h2 className="font-display text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
@@ -374,7 +374,7 @@ export const App: React.FC = () => {
         </section>
 
         {/* FAQ */}
-        <section id="faq" className="space-y-6 text-center">
+        <section id="faq" className="space-y-6 border-t border-slate-200/60 pt-24 text-center">
           <div className="flex flex-col items-center gap-3">
             <div>
               <h2 className="font-display text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
