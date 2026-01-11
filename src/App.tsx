@@ -6,6 +6,7 @@ import {
   Bolt,
   Headphones,
   Lock,
+  Mail,
   ShieldCheck,
   Sparkles,
   Timer,
@@ -399,6 +400,31 @@ export const App: React.FC = () => {
               question="What if the account has issues or I can’t log in?"
               answer="If there’s any issue accessing your account, we'll either replace the account or issue a full refund."
             />
+          </div>
+        </section>
+
+        {/* Support Section */}
+        <section id="support" className="space-y-6 border-t border-slate-200/60 pt-24 text-center">
+          <div className="flex flex-col items-center gap-4">
+            <div>
+              <h2 className="font-display text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
+                Need Help?
+              </h2>
+              <p className="mt-2 max-w-xl text-sm text-slate-600 sm:text-base mx-auto">
+                Have questions or need assistance? Our support team is here to help.
+              </p>
+            </div>
+            <motion.a
+              href="mailto:support@tokaccs.xyz"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="group inline-flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-6 py-4 text-sm font-medium text-slate-900 shadow-[0_18px_45px_rgba(15,23,42,0.16)] transition-all hover:border-slate-300 hover:shadow-[0_20px_50px_rgba(15,23,42,0.2)]"
+            >
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500/90 to-sky-500/90 text-white shadow-soft">
+                <Mail className="h-5 w-5" />
+              </span>
+              <span>support@tokaccs.xyz</span>
+            </motion.a>
           </div>
         </section>
       </main>
