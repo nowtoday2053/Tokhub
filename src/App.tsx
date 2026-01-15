@@ -273,7 +273,7 @@ export const App: React.FC = () => {
             <PricingCard
                name="Starter U.S. Account"
                description="Warmed U.S. account, perfect for marketing new startups, offers, etc."
-               price="$25"
+               price="$10"
                showBogo
                buyUrl="https://buy.stripe.com/eVq7sFc0o8LgfmO5tO5gc00"
               features={[
@@ -286,7 +286,7 @@ export const App: React.FC = () => {
             <PricingCard
               name="Aged Creator Account"
               description="Warmed U.S. accounts for serious founders and creators."
-              price="$49"
+              price="$20"
               highlighted
               unitLabel="5 accounts"
               buyUrl="https://buy.stripe.com/3cI4gt9Sg9Pk8Yq2hC5gc01"
@@ -300,7 +300,7 @@ export const App: React.FC = () => {
             <PricingCard
               name="Agency-Ready Bundle"
               description="Built for teams, agencies, and mass campaigns"
-              price="$100"
+              price="$50"
               unitLabel="10 accounts"
               buyUrl="https://buy.stripe.com/bJe8wJaWk6D85MeaO85gc02"
               features={[
