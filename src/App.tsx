@@ -19,8 +19,16 @@ import { FeatureCard } from './components/cards/FeatureCard';
 import { PricingCard } from './components/cards/PricingCard';
 import { TestimonialCard } from './components/cards/TestimonialCard';
 import { FAQItem } from './components/FAQItem';
+import { PaymentConfirmed } from './pages/PaymentConfirmed';
 
 export const App: React.FC = () => {
+  // Check if we're on the payment confirmed page
+  const urlParams = new URLSearchParams(window.location.search);
+  const isPaymentConfirmed = urlParams.get('success') === 'true' || window.location.pathname === '/payment-confirmed';
+
+  if (isPaymentConfirmed) {
+    return <PaymentConfirmed />;
+  }
   const { scrollYProgress } = useScroll();
   const headerBlur = useTransform(scrollYProgress, [0, 0.08], [0, 20]);
   const headerHeight = useTransform(scrollYProgress, [0, 0.15], [80, 64]);
