@@ -18,7 +18,6 @@ import { PricingCard } from './components/cards/PricingCard';
 import { TestimonialCard } from './components/cards/TestimonialCard';
 import { FAQItem } from './components/FAQItem';
 import { PaymentConfirmed } from './pages/PaymentConfirmed';
-import logoUrl from '../logo.png';
 
 export const App: React.FC = () => {
   // Check if we're on the payment confirmed page
@@ -62,7 +61,7 @@ export const App: React.FC = () => {
             <span className="relative grid h-12 w-12 place-items-center overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
               <span className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 via-sky-400/10 to-transparent" />
               <img
-                src={logoUrl}
+                src="/logo.png"
                 alt="Tokaccs"
                 className="relative h-9 w-9 object-contain"
               />
