@@ -6,7 +6,7 @@ import { useInViewAnimation } from '../../hooks/useInViewAnimation';
 
 type PricingCardProps = {
   name: string;
-  description: string;
+  description?: string;
   price: string;
   badge?: string;
   features: string[];
@@ -14,6 +14,7 @@ type PricingCardProps = {
   unitLabel?: string;
   showBogo?: boolean;
   buyUrl?: string;
+  footerNote?: string;
 };
 
 export const PricingCard: React.FC<PricingCardProps> = ({
@@ -25,7 +26,8 @@ export const PricingCard: React.FC<PricingCardProps> = ({
   highlighted,
   unitLabel = 'account',
   showBogo = false,
-  buyUrl
+  buyUrl,
+  footerNote = 'Delivered instantly.'
 }) => {
   const { ref, inView } = useInViewAnimation<HTMLDivElement>();
 
@@ -49,7 +51,9 @@ export const PricingCard: React.FC<PricingCardProps> = ({
       )}
       <div className="mb-4 space-y-2">
         <h3 className="font-medium text-slate-900">{name}</h3>
-        <p className="text-sm text-slate-600">{description}</p>
+        {description ? (
+          <p className="text-sm text-slate-600">{description}</p>
+        ) : null}
       </div>
       <div className="mb-5 flex items-baseline gap-1">
         <span className="text-3xl font-semibold text-slate-900">{price}</span>
@@ -81,7 +85,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({
         </Button>
       )}
       <p className="mt-3 text-center text-[11px] text-slate-400">
-        Delivered within 60 minutes. 24 hour money back guarantee.
+        {footerNote}
       </p>
     </motion.div>
   );
