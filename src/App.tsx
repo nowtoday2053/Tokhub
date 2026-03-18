@@ -22,7 +22,10 @@ import { PaymentConfirmed } from './pages/PaymentConfirmed';
 export const App: React.FC = () => {
   // Check if we're on the payment confirmed page
   const urlParams = new URLSearchParams(window.location.search);
-  const isPaymentConfirmed = urlParams.get('success') === 'true' || window.location.pathname === '/payment-confirmed';
+  const isPaymentConfirmed =
+    urlParams.get('success') === 'true' ||
+    window.location.pathname === '/payment-confirmed' ||
+    window.location.pathname === '/success';
 
   if (isPaymentConfirmed) {
     return <PaymentConfirmed />;
@@ -107,7 +110,7 @@ export const App: React.FC = () => {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: 'easeOut', delay: 0.05 }}
-              className="flex flex-col space-y-4 text-left"
+              className="flex flex-col items-center space-y-4 text-center md:items-start md:text-left"
             >
               <motion.div
                 initial={{ opacity: 0, y: 26 }}
@@ -133,7 +136,7 @@ export const App: React.FC = () => {
                 Forget spending months warming up a new account. Our aged U.S. TikToks go viral the moment you start posting.
               </p>
 
-              <div className="mt-4 flex flex-wrap items-center gap-3">
+              <div className="mt-4 flex flex-wrap items-center justify-center gap-3 md:justify-start">
                 <Button size="lg" variant="secondary" onClick={onPrimaryCta} isLoading={ctaLoading}>
                   Buy Now
                 </Button>
@@ -525,7 +528,7 @@ export const App: React.FC = () => {
               </p>
 
               <motion.a
-                href="mailto:support@tokaccs.xyz"
+                href="mailto:support@tokaccs.com"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className="group mt-8 inline-flex w-full items-center justify-between gap-4 rounded-3xl border border-slate-200 bg-white/80 px-6 py-5 text-left shadow-[0_22px_60px_rgba(15,23,42,0.14)] backdrop-blur transition-all hover:border-slate-300 hover:bg-white hover:shadow-[0_26px_70px_rgba(15,23,42,0.16)] sm:px-7"
@@ -535,7 +538,7 @@ export const App: React.FC = () => {
                     <Mail className="h-6 w-6" />
                   </span>
                   <span className="flex flex-col">
-                    <span className="text-sm font-semibold text-slate-900 sm:text-base">support@tokaccs.xyz</span>
+                    <span className="text-sm font-semibold text-slate-900 sm:text-base">support@tokaccs.com</span>
                     <span className="text-xs text-slate-500">Tap to email • replies within 1 hour</span>
                   </span>
                 </span>

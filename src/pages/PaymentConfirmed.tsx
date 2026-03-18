@@ -47,8 +47,7 @@ export const PaymentConfirmed: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-base text-slate-600 sm:text-lg"
             >
-              Your order has been processed successfully. Your U.S. TikTok account
-              credentials will be delivered to your email within 60 minutes.
+              Payment received. Your account details have been emailed to you.
             </motion.p>
           </div>
 
@@ -69,9 +68,7 @@ export const PaymentConfirmed: React.FC = () => {
                 </h3>
               </div>
               <p className="text-xs leading-relaxed text-slate-600">
-                We&apos;ll send your account credentials to the email address you
-                used during checkout. Check your inbox (and spam folder) within
-                the next hour.
+                We sent your login details to the email you used at checkout. If you don’t see it, check spam/junk.
               </p>
             </div>
 
@@ -81,12 +78,11 @@ export const PaymentConfirmed: React.FC = () => {
                   <Clock className="h-5 w-5 text-amber-600" />
                 </div>
                 <h3 className="text-sm font-semibold text-slate-900">
-                  Delivery Time
+                  When you’ll get it
                 </h3>
               </div>
               <p className="text-xs leading-relaxed text-slate-600">
-                Most accounts are delivered within 30–60 minutes. If you
-                haven&apos;t received yours after an hour, contact support.
+                Most emails arrive instantly. If you don’t get it within 10 minutes, contact support.
               </p>
             </div>
           </motion.div>
@@ -139,10 +135,10 @@ export const PaymentConfirmed: React.FC = () => {
             <p className="text-xs text-slate-500">
               Need help? Email us at{' '}
               <a
-                href="mailto:support@tokaccs.xyz"
+                href="mailto:support@tokaccs.com"
                 className="font-medium text-slate-900 hover:underline"
               >
-                support@tokaccs.xyz
+                support@tokaccs.com
               </a>
             </p>
           </motion.div>
@@ -162,7 +158,7 @@ export const PaymentConfirmed: React.FC = () => {
               }}
             >
               Return to Home
-              <ArrowRight className="h-4 w-4" />
+             
             </Button>
           </motion.div>
         </motion.div>
