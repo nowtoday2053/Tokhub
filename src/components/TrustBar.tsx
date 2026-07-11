@@ -10,7 +10,7 @@ const PaymentIcons = () => (
       MC
     </span>
     <span className="rounded border border-zinc-200 bg-white px-2 py-0.5 text-[10px] font-semibold tracking-wide text-indigo-600">
-      stripe
+      square
     </span>
   </div>
 );
@@ -20,7 +20,7 @@ export const TrustBar: React.FC = () => {
     { icon: Lock, label: 'Secure Checkout' },
     { icon: ShieldCheck, label: '24hr Money-Back Guarantee' },
     { icon: RefreshCw, label: 'Free Replacement' },
-    { icon: CreditCard, label: 'Stripe Payments' }
+    { icon: CreditCard, label: 'Square Payments' }
   ];
 
   return (

@@ -175,7 +175,7 @@ export const App: React.FC = () => {
                   icon: CreditCard,
                   title: 'Secure payment',
                   description:
-                    'Pay safely through Stripe. Encrypted checkout, instant confirmation, and a receipt sent to your email.'
+                    'Pay safely through Square. Encrypted checkout, instant confirmation, and a receipt sent to your email.'
                 },
                 {
                   step: '03',
@@ -218,7 +218,7 @@ export const App: React.FC = () => {
               </p>
               <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-xs text-zinc-500">
                 <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
-                Secure payments via Stripe · 24hr guarantee on every order
+                Secure payments via Square · 24hr guarantee on every order
               </div>
             </div>
 

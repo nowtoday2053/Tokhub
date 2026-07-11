@@ -12,7 +12,7 @@ export const faqs: FAQ[] = [
   {
     question: 'How does delivery work?',
     answer:
-      'After secure Stripe checkout, login credentials (email, password, and TikTok access details) are sent to your email within 1 hour — usually instantly. For bulk orders, delivery completes within 24 hours.'
+      'After secure Square checkout, login credentials (email, password, and TikTok access details) are sent to your email within 1 hour — usually instantly. For bulk orders, delivery completes within 24 hours.'
   },
   {
     question: 'What is your refund and replacement policy?',

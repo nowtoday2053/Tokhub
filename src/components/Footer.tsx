@@ -89,7 +89,7 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2 text-sm text-zinc-600">
               <li>24-hour money-back guarantee</li>
               <li>Free account replacement</li>
-              <li>Secure Stripe checkout</li>
+              <li>Secure Square checkout</li>
               <li>24/7 email support</li>
             </ul>
           </div>
@@ -108,7 +108,7 @@ export const Footer: React.FC = () => {
           <PolicyBlock
             id="privacy"
             title="Privacy Policy"
-            content="We collect only the information necessary to process your order and deliver account credentials (email address and payment details via Stripe). We do not sell your data to third parties. Payment processing is handled securely by Stripe. Contact support@tokaccs.com to request data deletion."
+            content="We collect only the information necessary to process your order and deliver account credentials (email address and payment details via Square). We do not sell your data to third parties. Payment processing is handled securely by Square. Contact support@tokaccs.com to request data deletion."
           />
         </div>
       </div>
