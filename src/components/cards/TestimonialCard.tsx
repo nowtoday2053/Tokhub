@@ -1,57 +1,53 @@
 import { motion } from 'framer-motion';
 import React from 'react';
-import { Star } from 'lucide-react';
+import { StarRating } from '../StarRating';
 import { useInViewAnimation } from '../../hooks/useInViewAnimation';
+import type { Testimonial } from '../../data/testimonials';
 
-type TestimonialCardProps = {
-  name: string;
-  handle: string;
-  quote: string;
-  role?: string;
-};
+type TestimonialCardProps = Testimonial & { index?: number };
 
 export const TestimonialCard: React.FC<TestimonialCardProps> = ({
   name,
   handle,
   quote,
-  role
+  role,
+  result,
+  photoUrl,
+  index = 0
 }) => {
   const { ref, inView } = useInViewAnimation<HTMLDivElement>();
-
-  const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(
-    name
-  )}&background=312e81&color=f9fafb&size=96&bold=true`;
 
   return (
     <motion.article
       ref={ref}
-      initial={{ opacity: 0, y: 24, scale: 0.96 }}
-      animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
-      transition={{ duration: 0.45, ease: 'easeOut' }}
-      whileHover={{ y: -6 }}
-      className="relative flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_18px_40px_rgba(15,23,42,0.14)]"
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.4, ease: 'easeOut' }}
+      className="flex flex-col gap-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-card"
     >
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <img
-            src={avatarUrl}
+            src={photoUrl}
             alt={name}
-            className="h-10 w-10 rounded-2xl border border-white/10 object-cover"
+            className="h-10 w-10 rounded-full border border-zinc-200 bg-white object-cover"
+            loading="lazy"
           />
           <div>
-            <p className="text-sm font-medium text-slate-900">{name}</p>
-            <p className="text-[11px] text-slate-500">
-              {handle} {role && `• ${role}`}
+            <p className="text-sm font-medium text-zinc-900">{name}</p>
+            <p className="text-xs text-zinc-400">
+              {handle} · {role}
             </p>
           </div>
         </div>
-        <div className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2.5 py-1 text-[11px] text-emerald-300">
-          <Star className="h-3 w-3 fill-emerald-400 text-emerald-400" />
-          <span>5.0</span>
-        </div>
+        <StarRating />
       </div>
-      <p className="text-sm leading-relaxed text-slate-700">{quote}</p>
+
+      <p className="flex-1 text-sm leading-relaxed text-zinc-600">&ldquo;{quote}&rdquo;</p>
+
+      <div className="rounded-lg bg-emerald-50 px-3 py-2 text-xs font-medium text-emerald-700">
+        {result}
+      </div>
     </motion.article>
   );
 };
-

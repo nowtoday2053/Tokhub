@@ -1,166 +1,95 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle, Mail, Clock, ArrowRight } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Clock, Mail } from 'lucide-react';
 import { Button } from '../components/Button';
 import { GradientBackground } from '../components/GradientBackground';
 
 export const PaymentConfirmed: React.FC = () => {
   return (
-    <div className="min-h-screen text-slate-900">
+    <div className="min-h-screen text-zinc-900">
       <GradientBackground />
 
-      <main className="mx-auto flex max-w-2xl flex-col items-center justify-center px-4 py-20 text-center">
+      <main className="mx-auto flex max-w-2xl flex-col items-center justify-center px-4 py-24 text-center">
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
           className="w-full space-y-8"
         >
-          {/* Success Icon */}
           <div className="flex justify-center">
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2, type: 'spring' }}
-              className="relative"
-            >
-              <div className="absolute inset-0 rounded-full bg-emerald-500/20 blur-2xl" />
-              <div className="relative flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-[0_20px_60px_rgba(16,185,129,0.4)]">
-                <CheckCircle className="h-12 w-12 text-white" />
-              </div>
-            </motion.div>
+            <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-emerald-500 text-white shadow-card">
+              <CheckCircle2 className="h-10 w-10" />
+            </div>
           </div>
 
-          {/* Main Message */}
-          <div className="space-y-4">
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="font-display text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl"
-            >
-              Payment Confirmed!
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-base text-slate-600 sm:text-lg"
-            >
-              Payment received. Your account details have been emailed to you.
-            </motion.p>
+          <div className="space-y-3">
+            <h1 className="text-3xl font-semibold tracking-tight text-zinc-900 sm:text-4xl">
+              Payment confirmed
+            </h1>
+            <p className="text-base text-zinc-500">
+              Your account credentials are on the way to your inbox.
+            </p>
           </div>
 
-          {/* Info Cards */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="grid gap-4 sm:grid-cols-2"
-          >
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 text-left shadow-sm">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="rounded-2xl border border-zinc-200 bg-white p-5 text-left shadow-card">
               <div className="mb-3 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-50">
-                  <Mail className="h-5 w-5 text-sky-600" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-100">
+                  <Mail className="h-4 w-4 text-zinc-600" />
                 </div>
-                <h3 className="text-sm font-semibold text-slate-900">
-                  Check Your Email
-                </h3>
+                <h3 className="text-sm font-semibold text-zinc-900">Check your email</h3>
               </div>
-              <p className="text-xs leading-relaxed text-slate-600">
-                We sent your login details to the email you used at checkout. If you don’t see it, check spam/junk.
+              <p className="text-xs leading-relaxed text-zinc-500">
+                Login details were sent to the email you used at checkout. Check spam if you don&apos;t see it within a few minutes.
               </p>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 text-left shadow-sm">
+            <div className="rounded-2xl border border-zinc-200 bg-white p-5 text-left shadow-card">
               <div className="mb-3 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50">
-                  <Clock className="h-5 w-5 text-amber-600" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-100">
+                  <Clock className="h-4 w-4 text-zinc-600" />
                 </div>
-                <h3 className="text-sm font-semibold text-slate-900">
-                  When you’ll get it
-                </h3>
+                <h3 className="text-sm font-semibold text-zinc-900">Delivery time</h3>
               </div>
-              <p className="text-xs leading-relaxed text-slate-600">
-                Most emails arrive instantly. If you don’t get it within 10 minutes, contact support.
+              <p className="text-xs leading-relaxed text-zinc-500">
+                Most orders arrive instantly. If you don&apos;t receive credentials within 1 hour, contact support for immediate help.
               </p>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Next Steps */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="rounded-3xl border border-slate-200 bg-white p-6 text-left shadow-sm"
-          >
-            <h3 className="mb-4 text-sm font-semibold text-slate-900">
-              What&apos;s Next?
-            </h3>
-            <ol className="space-y-3 text-xs text-slate-600">
+          <div className="rounded-2xl border border-zinc-200 bg-white p-6 text-left shadow-card">
+            <h3 className="mb-4 text-sm font-semibold text-zinc-900">Next steps</h3>
+            <ol className="space-y-3 text-sm text-zinc-500">
               <li className="flex items-start gap-3">
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xs font-medium text-slate-700">
-                  1
-                </span>
-                <span>
-                  Check your email for the account credentials (email + password
-                  + TikTok login info)
-                </span>
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-zinc-100 text-xs font-semibold text-zinc-600">1</span>
+                <span>Check your email for login credentials (email, password, TikTok access)</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xs font-medium text-slate-700">
-                  2
-                </span>
-                <span>
-                  Use a U.S. residential proxy when logging in to avoid any
-                  issues
-                </span>
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-zinc-100 text-xs font-semibold text-zinc-600">2</span>
+                <span>Log in using a U.S. residential proxy and change your password immediately</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xs font-medium text-slate-700">
-                  3
-                </span>
-                <span>Start posting and watch your views explode!</span>
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-zinc-100 text-xs font-semibold text-zinc-600">3</span>
+                <span>Update your profile and start posting — you&apos;re live</span>
               </li>
             </ol>
-          </motion.div>
+          </div>
 
-          {/* Support */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.7 }}
-            className="flex flex-col items-center gap-4"
-          >
-            <p className="text-xs text-slate-500">
-              Need help? Email us at{' '}
-              <a
-                href="mailto:support@tokaccs.com"
-                className="font-medium text-slate-900 hover:underline"
-              >
-                support@tokaccs.com
-              </a>
-            </p>
-          </motion.div>
+          <p className="text-sm text-zinc-400">
+            Need help?{' '}
+            <a href="mailto:support@tokaccs.com" className="font-medium text-zinc-900 hover:underline">
+              support@tokaccs.com
+            </a>
+          </p>
 
-          {/* CTA Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="pt-4"
+          <Button
+            size="lg"
+            onClick={() => { window.location.href = '/'; }}
+            className="gap-2"
           >
-            <Button
-              size="lg"
-              variant="secondary"
-              onClick={() => {
-                window.location.href = '/';
-              }}
-            >
-              Return to Home
-             
-            </Button>
-          </motion.div>
+            Return to home
+            <ArrowRight className="h-4 w-4" />
+          </Button>
         </motion.div>
       </main>
     </div>

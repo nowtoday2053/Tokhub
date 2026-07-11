@@ -1,590 +1,329 @@
 import React, { useState } from 'react';
-import { motion, useMotionTemplate, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import {
   ArrowRight,
-  Bolt,
+  CheckCircle2,
+  CreditCard,
   Headphones,
-  Lock,
   Mail,
-  Star,
-  Sparkles,
-  Timer,
-  Wallet
+  Package,
+  ShieldCheck,
+  Zap
 } from 'lucide-react';
 import { GradientBackground } from './components/GradientBackground';
+import { Header } from './components/Header';
+import { TrustBar } from './components/TrustBar';
+import { Footer } from './components/Footer';
 import { Button } from './components/Button';
 import { StatCounter } from './components/StatCounter';
+import { StarRating } from './components/StarRating';
+import { RecentPurchasesTicker } from './components/RecentPurchasesTicker';
 import { PricingCard } from './components/cards/PricingCard';
 import { TestimonialCard } from './components/cards/TestimonialCard';
 import { FAQItem } from './components/FAQItem';
 import { PaymentConfirmed } from './pages/PaymentConfirmed';
+import { tiers } from './data/tiers';
+import { testimonials } from './data/testimonials';
+import { faqs } from './data/faq';
 
 export const App: React.FC = () => {
-  // Check if we're on the payment confirmed page
   const urlParams = new URLSearchParams(window.location.search);
   const isPaymentConfirmed =
     urlParams.get('success') === 'true' ||
-    window.location.pathname === '/payment-confirmed' ||
-    window.location.pathname === '/success';
+    window.location.pathname === '/payment-confirmed';
 
   if (isPaymentConfirmed) {
     return <PaymentConfirmed />;
   }
+
   const { scrollYProgress } = useScroll();
-  const headerBlur = useTransform(scrollYProgress, [0, 0.08], [0, 20]);
-  const headerHeight = useTransform(scrollYProgress, [0, 0.15], [80, 64]);
-  const headerBgOpacity = useTransform(scrollYProgress, [0, 0.15], [0.7, 0.9]);
-  const headerBackdrop = useMotionTemplate`blur(${headerBlur}px)`;
-  const headerBackground = useMotionTemplate`rgba(248,250,252,${headerBgOpacity})`;
+  const headerBlur = useTransform(scrollYProgress, [0, 0.08], [0, 16]);
+  const headerHeight = useTransform(scrollYProgress, [0, 0.15], [72, 60]);
+  const headerBgOpacity = useTransform(scrollYProgress, [0, 0.15], [0.8, 0.95]);
+  const headerBackground = useTransform(headerBgOpacity, (v) => `rgba(255,255,255,${v})`);
 
   const [ctaLoading, setCtaLoading] = useState(false);
 
   const onPrimaryCta = () => {
     setCtaLoading(true);
-    setTimeout(() => setCtaLoading(false), 1200);
-    const pricingEl = document.getElementById('pricing');
-    pricingEl?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => setCtaLoading(false), 800);
+    document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   return (
-    <div className="min-h-screen text-slate-900">
+    <div className="min-h-screen text-zinc-900">
       <GradientBackground />
 
-      {/* Sticky header */}
-      <motion.header
-        style={{
-          backdropFilter: headerBackdrop,
-          height: headerHeight,
-          backgroundColor: headerBackground
-        }}
-        className="fixed inset-x-0 top-0 z-40 border-b border-slate-200/70"
-      >
-        <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <a href="#hero" className="group flex items-center gap-2">
-            <span className="relative grid h-12 w-12 place-items-center overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
-              <span className="absolute inset-0 bg-gradient-to-br from-indigo-500/20 via-sky-400/10 to-transparent" />
-              <img
-                src="/logo.png"
-                alt="Tokaccs"
-                className="relative h-9 w-9 object-contain"
-              />
-            </span>
-            <span className="font-display text-lg font-semibold tracking-tight text-slate-900">
-              Tokaccs
-            </span>
-          </a>
+      <Header
+        headerBlur={headerBlur}
+        headerHeight={headerHeight}
+        headerBackground={headerBackground}
+        onPrimaryCta={onPrimaryCta}
+        ctaLoading={ctaLoading}
+      />
 
-          <nav className="hidden items-center gap-1 rounded-full border border-slate-200/70 bg-white/60 px-2 py-1.5 text-sm text-slate-600 shadow-sm backdrop-blur sm:flex">
-            {[
-              { href: '#pricing', label: 'Pricing' },
-              { href: '#usage', label: 'How it works' },
-              { href: '#reviews', label: 'Reviews' },
-              { href: '#faq', label: 'FAQ' }
-            ].map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                className="rounded-full px-3.5 py-1.5 font-medium transition-colors hover:bg-slate-900/5 hover:text-slate-900"
-              >
-                {item.label}
-              </a>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-3">
-            <Button size="sm" variant="secondary" onClick={onPrimaryCta} isLoading={ctaLoading}>
-              Buy now
-            </Button>
-          </div>
-        </div>
-      </motion.header>
-
-      <main className="mx-auto flex max-w-6xl flex-col px-4 pb-20 pt-28 sm:px-6 sm:pt-32 lg:px-8 lg:pt-36">
+      <main>
         {/* Hero */}
-        <section
-          id="hero"
-          className="relative pb-10 pt-2"
-        >
-          <div className="grid items-start gap-8 pt-2 md:grid-cols-2 lg:gap-14 lg:pt-4">
+        <section id="hero" className="mx-auto max-w-6xl px-4 pb-16 pt-12 sm:px-6 sm:pt-16 lg:px-8 lg:pt-20">
+          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: 'easeOut', delay: 0.05 }}
-              className="flex flex-col items-center space-y-4 text-center md:items-start md:text-left"
+              transition={{ duration: 0.6 }}
+              className="space-y-8"
             >
-              <motion.div
-                initial={{ opacity: 0, y: 26 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.85, ease: 'easeOut', delay: 0.15 }}
-                className="inline-flex items-center gap-2 text-xs text-slate-600"
-              >
-                <span className="inline-flex items-center gap-0.5">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
-                  ))}
-                </span>
-                <span className="font-semibold text-slate-900">4.8/5</span>
-                <span className="hidden sm:inline text-slate-400">•</span>
-                <span className="hidden sm:inline text-slate-500">customer rating</span>
-              </motion.div>
-
-              <h1 className="font-sans -mt-0.5 text-[34px] font-extrabold leading-[1.05] tracking-tight text-slate-900 sm:text-[44px] md:text-[44px] lg:text-[50px]">
-                U.S. TikTok Accounts That Go Viral.
-              </h1>
-
-              <p className="max-w-xl text-[15px] leading-relaxed text-slate-600 sm:text-base">
-                Forget spending months warming up a new account. Our aged U.S. TikToks go viral the moment you start posting.
-              </p>
-
-              <div className="mt-4 flex flex-wrap items-center justify-center gap-3 md:justify-start">
-                <Button size="lg" variant="secondary" onClick={onPrimaryCta} isLoading={ctaLoading}>
-                  Buy Now
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  onClick={() => {
-                    const el = document.getElementById('usage');
-                    el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }}
-                >
-                  How It Works
-                </Button>
+              <div className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-xs font-medium text-zinc-600 shadow-sm">
+                <StarRating size="sm" />
+                <span className="text-zinc-900">5/5</span>
+                <span className="text-zinc-300">|</span>
+                <span>500+ accounts sold</span>
               </div>
 
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: 'easeOut', delay: 0.12 }}
-              className="flex justify-center md:justify-end"
-            >
-              <motion.div
-                className="pt-2 -mt-2 md:-mt-4 md:translate-x-4 lg:translate-x-10"
-              >
-                <img
-                  src="/image.png"
-                  alt="Analytics overview on a phone"
-                  className="w-full max-w-sm drop-shadow-[0_28px_70px_rgba(15,23,42,0.22)] sm:max-w-md"
-                />
-              </motion.div>
-            </motion.div>
-          </div>
-          </section>
-
-          {/* Why U.S. TikTok accounts */}
-          <section className="border-t border-slate-200/60 bg-white/40 py-24">
-            <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 sm:px-6 lg:px-8">
-              <div className="space-y-2 text-center">
-                <h2 className="font-display text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-                  Why U.S. TikTok Accounts?
-                </h2>
-                <p className="text-sm text-slate-600 sm:text-base">
-                  See the difference between aged U.S. accounts and random international accounts.
+              <div className="space-y-4">
+                <h1 className="text-balance text-4xl font-semibold tracking-tight text-zinc-900 sm:text-5xl lg:text-[3.25rem] lg:leading-[1.1]">
+                  U.S. TikTok Accounts That Go Viral Within A Week.
+                </h1>
+                <p className="max-w-lg text-base leading-relaxed text-zinc-500 sm:text-lg">
+                  Skip geo-blocks and start posting to the U.S. algorithm today.
+                  Every account is aged, manually verified, and backed by a{' '}
+                  <span className="font-medium text-zinc-800">24-hour money-back guarantee</span>.
                 </p>
               </div>
 
-              <div className="grid gap-6 md:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
-                <div className="relative overflow-hidden rounded-3xl border border-slate-200/70 bg-white px-6 py-7 text-slate-900 shadow-[0_18px_45px_rgba(15,23,42,0.08)] sm:px-8">
-                  <div className="absolute inset-0 bg-gradient-to-br from-sky-100/70 via-slate-50 to-transparent" />
-                  <div className="relative flex items-start justify-between gap-4">
-                    <div>
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-sky-500">
-                        Recommended
-                      </p>
-                      <h3 className="mt-1 font-display text-xl font-semibold sm:text-2xl">
-                        U.S. TikTok Accounts
-                      </h3>
-                      <p className="mt-1 text-xs text-slate-300">
-                        Clean history, real U.S. signals, and ready to post.
-                      </p>
-                    </div>
-                  </div>
-
-                  <dl className="relative mt-5 space-y-3 text-sm">
-                    {[
-                      {
-                        label: 'Shadowban status',
-                        value: 'No shadowbans — clean U.S. IP history.'
-                      },
-                      {
-                        label: 'Audience reach',
-                        value: 'Maximum reach with a 90%+ U.S. audience signal.'
-                      },
-                      {
-                        label: 'VPN required',
-                        value: 'No VPN gymnastics — native U.S. accounts.'
-                      },
-                      {
-                        label: 'Algorithm priority',
-                        value: 'Aligned with U.S. trends and recommendations.'
-                      },
-                      {
-                        label: 'Content performance',
-                        value: 'Shown to buyers who convert, not random viewers.'
-                      }
-                    ].map((item) => (
-                      <div key={item.label} className="flex items-start gap-3">
-                        <span className="mt-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-sky-100 text-sky-500">
-                          ✓
-                        </span>
-                        <div>
-                          <dt className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
-                            {item.label}
-                          </dt>
-                          <dd className="text-[13px] text-slate-800">{item.value}</dd>
-                        </div>
-                      </div>
-                    ))}
-                  </dl>
-                </div>
-
-                <div className="relative overflow-hidden rounded-3xl border border-slate-200/70 bg-white px-6 py-7 text-slate-900 shadow-[0_18px_45px_rgba(15,23,42,0.08)] sm:px-8">
-                  <div className="absolute inset-0 bg-gradient-to-br from-rose-100/70 via-slate-50 to-transparent" />
-                  <div className="relative flex items-start justify-between gap-4">
-                    <div>
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-rose-500">
-                        Not recommended
-                      </p>
-                      <h3 className="mt-1 font-display text-xl font-semibold sm:text-2xl">
-                        International Accounts
-                      </h3>
-                      <p className="mt-1 text-xs text-slate-600">
-                        Cheap accounts with the wrong region and bad history.
-                      </p>
-                    </div>
-                  </div>
-
-                  <dl className="relative mt-5 space-y-3 text-sm">
-                    {[
-                      {
-                        label: 'Shadowban status',
-                        value: 'Shadowbanned content — wrong country signals.'
-                      },
-                      {
-                        label: 'Audience reach',
-                        value: 'Low U.S. reach — deprioritized by the algorithm.'
-                      },
-                      {
-                        label: 'VPN required',
-                        value: 'Constant VPN / IP changes to even log in.'
-                      },
-                      {
-                        label: 'Algorithm priority',
-                        value: 'Algorithm disadvantage from mixed or foreign regions.'
-                      },
-                      {
-                        label: 'Content performance',
-                        value: 'Views in the wrong countries — no buyers, no conversions.'
-                      }
-                    ].map((item) => (
-                      <div key={item.label} className="flex items-start gap-3">
-                        <span className="mt-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-rose-100 text-rose-500">
-                          ✕
-                        </span>
-                        <div>
-                          <dt className="text-[11px] font-semibold uppercase tracking-wide text-slate-400">
-                            {item.label}
-                          </dt>
-                          <dd className="text-[13px] text-slate-800">{item.value}</dd>
-                        </div>
-                      </div>
-                    ))}
-                  </dl>
-                </div>
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                <Button size="lg" onClick={onPrimaryCta} isLoading={ctaLoading} className="w-fit whitespace-nowrap">
+                  Choose your account
+                  <ArrowRight className="h-4 w-4 shrink-0" />
+                </Button>
+                <a
+                  href="#how-it-works"
+                  className="inline-flex items-center justify-center gap-1 text-sm font-medium text-zinc-500 transition-colors hover:text-zinc-900"
+                >
+                  See how it works
+                </a>
               </div>
-            </div>
-          </section>
 
-          {/* Safe usage / proxy guidance */}
-          <section id="usage" className="border-t border-slate-200/60 py-24">
-            <div className="mx-auto max-w-3xl text-center">
-              <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/50 px-3 py-1.5 text-xs text-slate-600 backdrop-blur">
-                <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-slate-900 text-white">
-                  <Lock className="h-3.5 w-3.5" />
-                </span>
-                <span className="font-medium">Safe setup</span>
-                <span className="text-slate-400">•</span>
-                <span>avoid flags & keep reach</span>
-              </div>
-              <h2 className="mt-4 font-display text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-                How To Use These Accounts
+              <dl className="grid grid-cols-3 gap-4 rounded-2xl border border-zinc-200 bg-white p-5 shadow-card">
+                <div>
+                  <dt className="text-[11px] font-medium uppercase tracking-wider text-zinc-400">
+                    Accounts sold
+                  </dt>
+                  <dd className="mt-1 text-lg font-semibold text-zinc-900">
+                    <StatCounter value={500} suffix="+" />
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-[11px] font-medium uppercase tracking-wider text-zinc-400">
+                    Creators & agencies
+                  </dt>
+                  <dd className="mt-1 text-lg font-semibold text-zinc-900">
+                    <StatCounter value={120} suffix="+" />
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-[11px] font-medium uppercase tracking-wider text-zinc-400">
+                    Avg. rating
+                  </dt>
+                  <dd className="mt-1 text-lg font-semibold text-zinc-900">
+                    <StatCounter value={5} suffix="/5" />
+                  </dd>
+                </div>
+              </dl>
+
+              <RecentPurchasesTicker />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="relative hidden lg:flex lg:items-center lg:justify-end"
+            >
+              <img
+                src="/image.png"
+                alt="TikTok analytics showing viral U.S. reach"
+                className="w-full max-w-md translate-x-6 drop-shadow-2xl"
+                loading="eager"
+              />
+            </motion.div>
+          </div>
+        </section>
+
+        {/* How It Works */}
+        <section id="how-it-works" className="border-t border-zinc-200/80 bg-white py-20">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-12 text-center">
+              <h2 className="text-2xl font-semibold tracking-tight text-zinc-900 sm:text-3xl">
+                How it works
               </h2>
+              <p className="mx-auto mt-3 max-w-lg text-sm text-zinc-500 sm:text-base">
+                Three steps from checkout to your first U.S. viral post. No waiting, no guesswork.
+              </p>
             </div>
 
-            <ol className="mx-auto mt-10 max-w-5xl space-y-8 px-2 sm:px-0">
+            <div className="grid gap-8 md:grid-cols-3">
               {[
                 {
                   step: '01',
-                  title: 'Use a U.S. residential proxy',
+                  icon: Package,
+                  title: 'Choose your account',
                   description:
-                    'These accounts were created on U.S. IPs. Use a U.S. residential proxy (not a datacenter VPN) to avoid flags.',
-                  icon: Lock
+                    'Pick the tier that fits your goals — starter, aged creator, or agency bundle. Every listing shows exactly what you get.'
                 },
                 {
                   step: '02',
-                  title: 'Keep device & location consistent',
+                  icon: CreditCard,
+                  title: 'Secure payment',
                   description:
-                    'Stick to one device and one proxy per account. Don’t switch devices or IPs—consistency is key.',
-                  icon: Timer
+                    'Pay safely through Stripe. Encrypted checkout, instant confirmation, and a receipt sent to your email.'
                 },
                 {
                   step: '03',
-                  title: 'Start posting',
+                  icon: Zap,
+                  title: 'Instant delivery',
                   description:
-                    'Fill out your bio, add a profile photo, and post your first video the same day. Keep it natural (no spammy posting), and stay consistent for the first week.',
-                  icon: Sparkles
+                    'Your accounts arrive in your inbox within 30 seconds. Log in, secure the account, and start posting.'
                 }
-              ].map((item, idx, arr) => {
+              ].map((item) => {
                 const Icon = item.icon;
-                const isLast = idx === arr.length - 1;
                 return (
-                  <li key={item.step} className="relative">
-                    <div className="grid gap-4 sm:grid-cols-[auto,1fr] sm:gap-6">
-                      <div className="relative flex items-start gap-4">
-                        <div className="relative">
-                          <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-900 text-white shadow-sm">
-                            <Icon className="h-5 w-5" />
-                          </span>
-                          {!isLast && (
-                            <span className="absolute left-1/2 top-12 hidden h-[calc(100%+2rem)] w-px -translate-x-1/2 bg-slate-200 sm:block" />
-                          )}
-                        </div>
-                        <div className="pt-1 sm:hidden">
-                          <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-                            Step {item.step}
-                          </div>
-                        </div>
+                  <div
+                    key={item.step}
+                    className="relative rounded-2xl border border-zinc-200 bg-surface p-6"
+                  >
+                    <div className="mb-4 flex items-center gap-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-zinc-900 text-white">
+                        <Icon className="h-5 w-5" />
                       </div>
-
-                      <div className="rounded-none border-b border-slate-200 pb-8 sm:border-b-0 sm:pb-0">
-                        <div className="hidden text-[11px] font-semibold uppercase tracking-wider text-slate-400 sm:block">
-                          Step {item.step}
-                        </div>
-                        <div className="mt-1 flex items-baseline justify-between gap-4">
-                          <h3 className="font-display text-lg font-semibold tracking-tight text-slate-900 sm:text-xl">
-                            {item.title}
-                          </h3>
-                        </div>
-                        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
-                          {item.description}
-                        </p>
-                      </div>
+                      <span className="text-xs font-semibold text-zinc-300">{item.step}</span>
                     </div>
-                  </li>
+                    <h3 className="mb-2 text-base font-semibold text-zinc-900">{item.title}</h3>
+                    <p className="text-sm leading-relaxed text-zinc-500">{item.description}</p>
+                  </div>
                 );
               })}
-            </ol>
-          </section>
+            </div>
+          </div>
+        </section>
 
-          {/* Reviews */}
-          <section id="reviews" className="space-y-8 border-t border-slate-200/60 bg-white/40 py-24 text-center">
-            <div className="flex flex-col items-center gap-6">
-              <div className="flex flex-col items-center gap-3">
-                <div>
-                  <h2 className="font-display text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-                    TikTok Profiles Using Our Accounts
-                  </h2>
-                  <p className="mt-2 max-w-xl text-sm text-slate-600 sm:text-base mx-auto">
-                    See actual US based TikTok accounts from our satisfied customers
-                  </p>
-                </div>
+        {/* Pricing */}
+        <section id="pricing" className="py-20">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-12 text-center">
+              <h2 className="text-2xl font-semibold tracking-tight text-zinc-900 sm:text-3xl">
+                Choose your account
+              </h2>
+              <p className="mx-auto mt-3 max-w-lg text-sm text-zinc-500 sm:text-base">
+                U.S.-based, manually verified accounts. Full specs listed — no surprises at checkout.
+              </p>
+              <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-3 py-1.5 text-xs text-zinc-500">
+                <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
+                Secure payments via Stripe · 24hr guarantee on every order
               </div>
             </div>
-            <div className="mx-auto grid max-w-6xl gap-6 px-4 sm:grid-cols-3 sm:px-0">
-              {['/pic11.png', '/pic12.png', '/pic13.png', '/pic14.png', '/pic15.png', '/pic16.png'].map((src) => (
-                <div
-                  key={src}
-                  className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_22px_60px_rgba(15,23,42,0.14)]"
-                >
-                  <div className="grid aspect-[16/9] place-items-center bg-slate-900/95 p-3 sm:p-4">
-                    <img
-                      src={src}
-                      alt="Customer profile screenshot"
-                      className="h-full w-full object-contain"
-                    />
-                  </div>
-                </div>
+
+            <div className="grid gap-6 md:grid-cols-3">
+              {tiers.map((tier) => (
+                <PricingCard key={tier.name} {...tier} />
               ))}
             </div>
-          </section>
+          </div>
+        </section>
 
-          {/* Pricing / product tiers */}
-          <section id="pricing" className="space-y-8 border-t border-slate-200/60 py-24 text-center">
-             <div className="flex flex-col items-center gap-3">
-               <div>
-                 <h2 className="font-display text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-                   Pricing
-                 </h2>
-               </div>
-               <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-[11px] text-slate-600">
-                 <Wallet className="h-3.5 w-3.5 text-sky-400" />
-                 <span>Secure payments via Stripe.</span>
-               </div>
-             </div>
-            <div className="grid gap-5 md:grid-cols-3">
-              <PricingCard
-                 name="5 Account Bundle"
-                 price="$20"
-                 unitLabel="5 accounts"
-                 footerNote="Delivered instantly."
-                 buyUrl="https://buy.stripe.com/9B614ogxJ9OgcYo6wiefC00"
-                features={[
-                   'U.S. IP + email verified',
-                   'Created within last 1-2 months',
-                   'Clean history & email included',
-                   'Ready to post immediately'
-                ]}
-              />
-              <PricingCard
-                name="10 Account Bundle"
-                price="$50"
-                highlighted
-                unitLabel="10 accounts"
-                footerNote="Delivered instantly."
-                buyUrl="https://buy.stripe.com/eVqbJ295h6C49Mc4oaefC01"
-                features={[
-                  '3–6 months account age',
-                  'More trusted by the algorithm',
-                  'Clean history & email included',
-                  'Good for running multiple pages'
-                ]}
-              />
-              <PricingCard
-                name="20 Account Bundle"
-                price="$100"
-                unitLabel="20 accounts"
-                footerNote="Delivered instantly."
-                buyUrl="https://buy.stripe.com/dRmdRacht5y0f6w8EqefC02"
-                features={[
-                  '20 aged U.S. accounts',
-                  'Test different niches or content styles',
-                  'Bulk discount included',
-                  'Priority support'
-                ]}
-              />
-            </div>
-          </section>
-
-          {/* FAQ */}
-          <section id="faq" className="border-t border-slate-200/60 bg-white/40 py-24">
-            <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-              <div className="text-center">
-                <h2 className="font-display text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-                  FAQ
-                </h2>
-                <p className="mt-2 text-sm text-slate-600 sm:text-base">
-                  Common questions we get. If yours isn&apos;t here, just email us.
-                </p>
-              </div>
-
-              <div className="mt-8 space-y-3">
-              <FAQItem
-                question="How fast will I receive my account after paying?"
-                answer="Instantly. You'll get the login details by email and can change the password, email, etc. right away."
-              />
-              <FAQItem
-                question="What exactly is included with each account?"
-                answer="Email, password, and TikTok login info. Everything you need to get in."
-              />
-              <FAQItem
-                question="What if the account has issues or I can't log in?"
-                answer="We'll replace it or give you a full refund. No runaround."
-              />
-              <FAQItem
-                question="Do I need a proxy or VPN to use the account?"
-                answer="Yes — use a U.S. residential proxy to match the account’s location and avoid flags. Avoid datacenter VPNs."
-              />
-              <FAQItem
-                question="What does “aged” mean?"
-                answer="The account is already a few months old and has more trust signals than a brand-new account."
-              />
-              <FAQItem
-                question="Can I change the email, password, and 2FA?"
-                answer="Yes. You can secure it immediately after delivery: change the password, update the email, and enable 2-step verification."
-              />
-              </div>
-            </div>
-          </section>
-
-          {/* Support Section */}
-          <section id="support" className="space-y-6 border-t border-slate-200/60 py-24 text-center">
-            <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-              <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/60 px-3 py-1.5 text-xs text-slate-600 shadow-sm backdrop-blur">
-                <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-slate-900 text-white">
-                  <Headphones className="h-3.5 w-3.5" />
-                </span>
-                <span className="font-medium">Support</span>
-                <span className="text-slate-400">•</span>
-                <span>replies within 1 hour</span>
-              </div>
-
-              <h2 className="mt-4 font-display text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-                Need Help?
+        {/* Testimonials */}
+        <section id="reviews" className="border-t border-zinc-200/80 bg-white py-20">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-12 text-center">
+              <h2 className="text-2xl font-semibold tracking-tight text-zinc-900 sm:text-3xl">
+                Trusted by creators and agencies
               </h2>
-              <p className="mt-2 text-sm text-slate-600 sm:text-base">
-                Something not working? Email us anytime — we reply within an hour.
+              <p className="mx-auto mt-3 max-w-lg text-sm text-zinc-500 sm:text-base">
+                Real results from real customers. Here&apos;s what happens after delivery.
               </p>
-
-              <motion.a
-                href="mailto:support@tokaccs.com"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="group mt-8 inline-flex w-full items-center justify-between gap-4 rounded-3xl border border-slate-200 bg-white/80 px-6 py-5 text-left shadow-[0_22px_60px_rgba(15,23,42,0.14)] backdrop-blur transition-all hover:border-slate-300 hover:bg-white hover:shadow-[0_26px_70px_rgba(15,23,42,0.16)] sm:px-7"
-              >
-                <span className="flex items-center gap-4">
-                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500/90 to-sky-500/90 text-white shadow-soft">
-                    <Mail className="h-6 w-6" />
-                  </span>
-                  <span className="flex flex-col">
-                    <span className="text-sm font-semibold text-slate-900 sm:text-base">support@tokaccs.com</span>
-                    <span className="text-xs text-slate-500">Tap to email • replies within 1 hour</span>
-                  </span>
-                </span>
-                <span className="hidden rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 sm:inline">
-                  Email us
-                </span>
-              </motion.a>
+              <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-zinc-200 px-3 py-1.5 text-xs text-zinc-600">
+                <StarRating />
+                <span className="font-medium text-zinc-900">5/5</span>
+                <span>from 120+ verified buyers</span>
+              </div>
             </div>
-          </section>
-        </main>
 
-        {/* Footer */}
-        <footer className="border-t border-slate-200 bg-white/80 text-xs text-slate-500">
-          <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <span className="font-display text-base font-semibold text-slate-900">
-                  Tokaccs
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {testimonials.map((t, index) => (
+                <TestimonialCard key={t.handle} {...t} index={index} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section id="faq" className="border-t border-zinc-200/80 bg-white py-20">
+          <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-10 text-center">
+              <h2 className="text-2xl font-semibold tracking-tight text-zinc-900 sm:text-3xl">
+                Frequently asked questions
+              </h2>
+              <p className="mt-3 text-sm text-zinc-500 sm:text-base">
+                Everything you need to know before buying. Still unsure?{' '}
+                <a href="mailto:support@tokaccs.com" className="font-medium text-zinc-900 hover:underline">
+                  Email us
+                </a>
+                .
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              {faqs.map((faq) => (
+                <FAQItem key={faq.question} question={faq.question} answer={faq.answer} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Support CTA */}
+        <section id="support" className="py-20">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="rounded-2xl border border-zinc-200 bg-white p-8 text-center shadow-card sm:p-12">
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-zinc-900 text-white">
+                <Headphones className="h-6 w-6" />
+              </div>
+              <h2 className="text-2xl font-semibold tracking-tight text-zinc-900">
+                Questions before you buy?
+              </h2>
+              <p className="mx-auto mt-3 max-w-md text-sm text-zinc-500">
+                Our team responds within minutes. Reach out anytime — before or after your purchase.
+              </p>
+              <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+                <a href="mailto:support@tokaccs.com">
+                  <Button variant="secondary" className="gap-2">
+                    <Mail className="h-4 w-4" />
+                    support@tokaccs.com
+                  </Button>
+                </a>
+                <Button onClick={onPrimaryCta} className="gap-2">
+                  Browse accounts
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              </div>
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-4 text-xs text-zinc-400">
+                <span className="flex items-center gap-1">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+                  Avg. response under 30 min
+                </span>
+                <span className="flex items-center gap-1">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+                  24/7 email support
+                </span>
+                <span className="flex items-center gap-1">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+                  Free replacements
                 </span>
               </div>
-              <p className="max-w-md text-[11px] text-slate-500">
-                Tokaccs is not affiliated with or endorsed by TikTok or ByteDance.
-                All trademarks are property of their respective owners.
-              </p>
             </div>
           </div>
-          <div className="border-t border-slate-200 py-4">
-            <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 text-[11px] text-slate-500 sm:flex-row sm:px-6 lg:px-8">
-              <p>© 2026 Tokaccs. All rights reserved.</p>
-            </div>
-          </div>
-        </footer>
-      </div>
+        </section>
+      </main>
+
+      <Footer />
+    </div>
   );
 };
-
-const StarRow: React.FC = () => {
-  return (
-    <span className="inline-flex items-center gap-0.5">
-      {Array.from({ length: 5 }).map((_, i) => (
-        <span
-          key={i}
-          className="h-3 w-3 rounded-full bg-gradient-to-br from-amber-300 to-amber-500 shadow-[0_0_0_1px_rgba(251,191,36,0.6)]"
-        />
-      ))}
-    </span>
-  );
-};
-
